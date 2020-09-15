@@ -150,6 +150,22 @@ func ParseTLSConfig(cfg *config.TLS) *tls.Config {
 	tlsConfig.ClientCAs = certPool
 	tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
 
+	if len(cfg.AllowedCN) > 0 {
+		customVerify := func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+			for _, chain := range verifiedChains {
+				for _, cert := range chain {
+					for _, cn := range cfg.AllowedCN {
+						if cert.Subject.CommonName == cn {
+							return nil
+						}
+					}
+				}
+			}
+			return errors.New("cn not in allowed_cn list")
+		}
+		tlsConfig.VerifyPeerCertificate = customVerify
+	}
+
 	return tlsConfig
 }
 

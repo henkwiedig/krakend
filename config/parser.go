@@ -216,6 +216,7 @@ type parseableTLS struct {
 	PreferServerCipherSuites bool     `json:"prefer_server_cipher_suites"`
 	CipherSuites             []uint16 `json:"cipher_suites"`
 	EnableMTLS               bool     `json:"enable_mtls"`
+	AllowedCN                []string `json:"allowed_cn"`
 }
 
 type parseableEndpointConfig struct {

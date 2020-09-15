@@ -241,6 +241,7 @@ type TLS struct {
 	PreferServerCipherSuites bool     `mapstructure:"prefer_server_cipher_suites"`
 	CipherSuites             []uint16 `mapstructure:"cipher_suites"`
 	EnableMTLS               bool     `mapstructure:"enable_mtls"`
+	AllowedCN                []string `mapstructure:"allowed_cn"`
 }
 
 // ExtraConfig is a type to store extra configurations for customized behaviours
